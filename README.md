@@ -7,4 +7,4 @@ A library to extends [IceSL](http://webloria.loria.fr/~slefebvr/icesl/) with hig
 
 [IcestoneSL](https://github.com/loic-fejoz/IcestoneSL) provides same primitives as [Shapes.inc](http://www.povray.org/documentation/view/3.7.0/468/) from [POVRay](http://www.povray.org/).
 
-It will provide more in the futur. Stay tune!
+It will provide more in the future. Stay tune!
