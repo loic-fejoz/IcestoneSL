@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Luadocs for src/main/lua/povray.lua</title>
+    <link rel="stylesheet" href="../../../../luadoc.css" type="text/css" />
+    <!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+    <div id="product_logo"></div>
+    <div id="product_name"><big><b></b></big></div>
+    <div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../../../../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li><strong>src/main/lua/povray.lua</strong></li>
+	
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>src/main/lua/povray.lua</code></h1>
+
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_box">povray_box</a>&nbsp;(p1, p2)</td>
+    <td class="summary">The box shape is define by two opposite corners.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_cone">povray_cone</a>&nbsp;(c1, r1, c2, r2)</td>
+    <td class="summary">The cone shape is defined by the center and radius of each end.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_cylinder">povray_cylinder</a>&nbsp;(c1, c2, radius)</td>
+    <td class="summary">The cylinder shape is defined by the center of each end and the radius.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_round_box">povray_round_box</a>&nbsp;(p1, p2, edge)</td>
+    <td class="summary">The round box shape is defined by two opposite corners and radius of the edges.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_round_cone2">povray_round_cone2</a>&nbsp;(c1, r1, c2, r2)</td>
+    <td class="summary">Creates a cone with rounded edges from a cone and two spheres.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_round_cylinder">povray_round_cylinder</a>&nbsp;(c1, c2, radius, edge_radius)</td>
+    <td class="summary">Creates a cylinder with rounded edges from cylinders and tori.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_torus">povray_torus</a>&nbsp;(r_major, r_minor)</td>
+    <td class="summary">Creates a torus centered on v(0,0,0) with major radius and minor radius.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#povray_wire_box">povray_wire_box</a>&nbsp;(p1, p2, edge)</td>
+    <td class="summary">The wire box shape is  made of cylinders and spheres.</td>
+    </tr>
+
+</table>
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="povray_box"></a><strong>povray_box</strong>&nbsp;(p1, p2)</dt>
+<dd>
+The box shape is define by two opposite corners.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  p1: near lower left corner
+	</li>
+	
+	<li>
+	  p2: far upper right corner
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_box(v(-5,-5,-5), v(5,5,5)) > box(5) == povray_box(v(-5,-5,-5), v(5,5,5))
+
+
+
+<h3>Return value:</h3>
+a box
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_cone"></a><strong>povray_cone</strong>&nbsp;(c1, r1, c2, r2)</dt>
+<dd>
+The cone shape is defined by the center and radius of each end.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  c1: center of first end
+	</li>
+	
+	<li>
+	  r1: radius of first end
+	</li>
+	
+	<li>
+	  c2: center of other end
+	</li>
+	
+	<li>
+	  r2: radius of other end
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_cone(v(20,20,20),3,v(0,0,0),0) > cone(20,5,30) == povray_cone(v(0,0,0), 20, v(0,0,30), 5)
+
+
+
+<h3>Return value:</h3>
+a cone
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_cylinder"></a><strong>povray_cylinder</strong>&nbsp;(c1, c2, radius)</dt>
+<dd>
+The cylinder shape is defined by the center of each end and the radius.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  c1: center of first end
+	</li>
+	
+	<li>
+	  c2: center of other end
+	</li>
+	
+	<li>
+	  radius: of the cylinder
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_cylinder(v(20,20,20),v(0,0,0),3) > cylinder(5,20) == povray_cylinder(v(0,0,0), v(0,0,20), 5)
+
+
+
+<h3>Return value:</h3>
+a cylinder
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_round_box"></a><strong>povray_round_box</strong>&nbsp;(p1, p2, edge)</dt>
+<dd>
+The round box shape is defined by two opposite corners and radius of the edges.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  p1: near lower left corner
+	</li>
+	
+	<li>
+	  p2: far upper right corner
+	</li>
+	
+	<li>
+	  edge: radius of the edges
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_round_box(v(0,0,0), v(20,30,40), 2)
+
+
+
+<h3>Return value:</h3>
+a round box that will fit entirely within a box object with the same corner points
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_round_cone2"></a><strong>povray_round_cone2</strong>&nbsp;(c1, r1, c2, r2)</dt>
+<dd>
+Creates a cone with rounded edges from a cone and two spheres. The returning object will not fit entirely within a cone object with the same end points and radii because of the spherical caps. The end points are not used for the conical portion, but for the spheres, a suitable cone is then generated to smoothly join them.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  c1: center of first end
+	</li>
+	
+	<li>
+	  r1: radius of first end
+	</li>
+	
+	<li>
+	  c2: center of other end
+	</li>
+	
+	<li>
+	  r2: radius of other end
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_round_cone2(v(20,20,20),3,v(0,0,0),0) > cone(20,5,30) == povray_cone(v(0,0,0), 20, v(0,0,30), 5)
+
+
+
+<h3>Return value:</h3>
+a round cone
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_round_cylinder"></a><strong>povray_round_cylinder</strong>&nbsp;(c1, c2, radius, edge_radius)</dt>
+<dd>
+Creates a cylinder with rounded edges from cylinders and tori. The resulting object will fit entirely within a cylinder object with the same end points and radius.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  c1: center of first end
+	</li>
+	
+	<li>
+	  c2: center of other end
+	</li>
+	
+	<li>
+	  radius: of the cylinder
+	</li>
+	
+	<li>
+	  edge_radius: the radius of the edges of the cylinder
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_round_cylinder(v(20,20,20),v(0,0,0),3,1)
+
+
+
+<h3>Return value:</h3>
+a rounded cylinder
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_torus"></a><strong>povray_torus</strong>&nbsp;(r_major, r_minor)</dt>
+<dd>
+Creates a torus centered on v(0,0,0) with major radius and minor radius.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  r_major: the major radius
+	</li>
+	
+	<li>
+	  r_minor: the minor radius
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+emit(torus(20, 5));
+
+
+
+<h3>Return value:</h3>
+a torus
+
+
+
+</dd>
+
+
+
+
+<dt><a name="povray_wire_box"></a><strong>povray_wire_box</strong>&nbsp;(p1, p2, edge)</dt>
+<dd>
+The wire box shape is  made of cylinders and spheres. It is defined by two opposite corners and radius of the wire.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  p1: near lower left corner
+	</li>
+	
+	<li>
+	  p2: far upper right corner
+	</li>
+	
+	<li>
+	  edge: radius of the edges
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+povray_wire_box(v(0,0,0), v(20,30,40), 2)
+
+
+
+<h3>Return value:</h3>
+a wire-frame box that will fit entirely within a box object with the same corner points
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+    <p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -24,6 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -- Library inspired from that of POVRAY shapes.inc
 -- @see http://www.f-lohmueller.de/pov_tut/all_shapes/shapes000e.htm
 
+----
 -- The box shape is define by two opposite corners.
 -- @return a box
 -- @param p1 near lower left corner
@@ -34,6 +35,7 @@ function povray_box(p1, p2)
 	return translate(p1+(p2-p1)/2) * scale(p2 - p1) * box(1);
 end
 
+----
 -- The cone shape is defined by the center and radius of each end.
 -- @return a cone
 -- @param c1 center of first end
@@ -66,6 +68,7 @@ end
 
 -- povray_cone_referential(30);
 
+----
 -- The cylinder shape is defined by the center of each end and the radius.
 -- @return a cylinder
 -- @param c1 center of first end
@@ -99,7 +102,7 @@ end
 
 -- TODO: Torus not yet possible without shaders nor polyhedron.
 
-
+----
 -- The wire box shape is  made of cylinders and spheres. It is defined by two opposite corners and radius of the wire.
 -- @return a wire-frame box that will fit entirely within a box object with the same corner points
 -- @param p1 near lower left corner
@@ -138,6 +141,7 @@ function povray_wire_box(p1, p2, edge)
 	}
 end
 
+----
 -- The round box shape is defined by two opposite corners and radius of the edges.
 -- @return a round box that will fit entirely within a box object with the same corner points
 -- @param p1 near lower left corner
@@ -163,6 +167,7 @@ end
 
 -- TODO: round_cone1 need torus.
 
+----
 -- Creates a cone with rounded edges from a cone and two spheres. 
 -- The returning object will not fit entirely within a cone object with the same end points and radii because of the spherical caps.
 -- The end points are not used for the conical portion, but for the spheres, a suitable cone is then generated to smoothly join them.
@@ -195,6 +200,7 @@ function povray_round_cone2(c1, r1, c2, r2)
 		
 end
 
+----
 -- Creates a torus centered on v(0,0,0) with major radius and minor radius.
 -- @return a torus
 -- @param r_major the major radius
@@ -230,6 +236,7 @@ end
 -- TODO: uncomment this when torus will be primitive in IceSL
 torus = povray_torus;
 
+----
 -- Creates a cylinder with rounded edges from cylinders and tori.
 -- The resulting object will fit entirely within a cylinder object with the same end points and radius.
 -- @return a rounded cylinder

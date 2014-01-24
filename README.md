@@ -25,3 +25,16 @@ Usage
 -----
 
 Simply add `require "povray";` on top of your file.
+
+See [Luadoc Documentation](doc/luadoc/files/src/main/lua/povray.html) for details.
+
+Here is the code producing the image above :
+
+	emit(povray_box(v(5,5,0), v(10,10,5)));
+	emit(povray_cone(v(20,20,0),3,v(20,20,10),1));
+	emit(povray_cylinder(v(-10,20,0),v(-10,20,10),3));
+	emit(povray_round_cylinder(v(10,20,0),v(10,20,10),3,1));
+	emit(povray_wire_box(v(20,10,0), v(25,15,10), 0.5));
+	emit(povray_round_box(v(-5,-5,0), v(0,0,5), 1));
+	emit(translate(-5, -10, 1) * torus(4,1));
+	emit(povray_round_cone2(v(5,5,10),3,v(0,0,0),0));
