@@ -26,7 +26,7 @@ Usage
 
 Simply add `require "povray";` on top of your file.
 
-See [Luadoc Documentation](doc/luadoc/files/src/main/lua/povray.html) for details.
+See [Luadoc Documentation](http://htmlpreview.github.io?https://github.com/loic-fejoz/IcestoneSL/blob/master/doc/luadoc/files/src/main/lua/povray.html) for details.
 
 Here is the code producing the image above :
 
