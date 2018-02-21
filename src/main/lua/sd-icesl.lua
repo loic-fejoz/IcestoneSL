@@ -36,11 +36,22 @@ end
 
 function sdUnion(...)
     local args = {...}
+    if args[1] == nil then
+      return args[2]
+    end
     return {kind="opUnion", children=args}
 end
 
 function sdBlend(...)
     local args = {...}
+    if args[1] == nil then
+      --print("skipping sdBlend first arg")
+      return args[2]
+    end
+    if args[2] == nil then
+      --print("skipping sdBlend second arg")
+      return args[1]
+    end
     return {kind="opBlend", children=args}
 end
 
@@ -53,7 +64,9 @@ end
 
 function sdTranslate(...)
     local args = {...}
-    modifier = {
+    -- TODO test of #args == 1 and if it is a vector
+    --print("sdTranslate(" .. args[1] .. ", " .. args[2] .. ", " ..args[3] .. ")")
+    local modifier = {
         kind="opTranslate",
         args={args[1], args[2], args[3]}
     }
@@ -62,9 +75,12 @@ function sdTranslate(...)
 end
 
 function sdImplicit(pmin, pmax, sdShape)
-  defs = accumulateDefinition(sdShape, "")
-  instances = accumulateInstances(sdShape, "", "p", "d")
-  glsl = defs .. "\nfloat " .. distanceMethodName .. "(vec3 p) {\n  float d;\n" .. instances .. "  return d;\n}\n"
+  if sdShape == nil then
+    return nil
+  end
+  local defs = accumulateDefinition(sdShape, "")
+  local instances = accumulateInstances(sdShape, "", "p", "d")
+  local glsl = defs .. "\nfloat " .. distanceMethodName .. "(vec3 p) {\n  float d;\n" .. instances .. "  return d;\n}\n"
   --print(glsl)
   return implicit_distance_field(
     pmin,
@@ -73,7 +89,7 @@ function sdImplicit(pmin, pmax, sdShape)
 end
 
 function sdEmit(sdShape)
-    obj = sdImplicit(
+    local obj = sdImplicit(
       v(-20, -20, -20),
       v(20, 20, 20),
       sdShape)
@@ -83,7 +99,12 @@ end
 decl = {}
 
 function accumulateDefinition(sdShape, acc)
-    if sdShape.kind == "sdBox" and decl.sdBox == nil then
+    if sdShape.kind == nil then
+      print("buggy sdShape")
+      return acc
+    end
+    if sdShape.kind == "sdBox" then
+      if decl.sdBox == nil then
         decl.sdBox = true
         acc = acc..[[
 float sdBox(vec3 p, vec3 b)
@@ -92,7 +113,9 @@ float sdBox(vec3 p, vec3 b)
   return min(max(d.x, max(d.y, d.z)), 0.0) + length(max(d, 0.0));
 }
 ]]
-    elseif sdShape.kind == "sdTorus" and decl.sdTorus == nil then
+      end
+    elseif sdShape.kind == "sdTorus" then
+      if decl.sdTorus == nil then
         decl.sdTorus = true
         acc = acc..[[
 float sdTorus(vec3 p, vec2 t)
@@ -101,7 +124,9 @@ float sdTorus(vec3 p, vec2 t)
   return length(q)-t.y;
 }
 ]]
-    elseif sdShape.kind == "sdSphere" and decl.sdSphere == nil then
+      end
+    elseif sdShape.kind == "sdSphere" then
+      if decl.sdSphere == nil then
         decl.sdSphere = true
         acc = acc..[[
 float sdSphere(vec3 p, float s)
@@ -109,6 +134,7 @@ float sdSphere(vec3 p, float s)
   return length(p)-s;
 }
 ]]
+      end
     else
         if sdShape.kind == "opBlend" and decl.opBlend == nil then
             decl.opBlend = true
@@ -133,6 +159,11 @@ float opUnion( float d1, float d2 )
 }
 ]]
         end
+
+        if sdShape.children == nil then
+          print(sdShape.kind .. " has no child")
+          return acc
+        end
         for k, v in pairs(sdShape.children) do
             acc = accumulateDefinition(v, acc)
         end
@@ -142,6 +173,10 @@ end
 
 idCounter = 1
 function accumulateInstances(sdShape, acc, p, d)
+  if sdShape.kind == nil then
+    print("buggy sdShape")
+    return acc
+  end
     if sdShape.kind == "opUnion" or sdShape.kind == "opBlend" then
         for k, v in pairs(sdShape.children) do
             local theVar = "d" .. idCounter
@@ -165,6 +200,7 @@ function accumulateInstances(sdShape, acc, p, d)
         acc = acc .. sdShape.args[1] .. ", " .. sdShape.args[2] .. ", " .. sdShape.args[3] .. ");\n"
         acc = accumulateInstances(sdShape.children[1], acc, theVar, d)
     else
+      assert(sdShape.kind ~= nil)
         acc = acc .. "  " .. d .. " = " .. sdShape.kind .. "(" .. p .. ", "
         if #sdShape.args ~= 1 then
           acc = acc .. "vec" .. #sdShape.args
