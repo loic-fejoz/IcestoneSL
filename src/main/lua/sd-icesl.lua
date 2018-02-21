@@ -1,13 +1,23 @@
 -- https://www.shadertoy.com/view/4dtGWM
 
+distanceMethodName = "distance"
+
 if emit == nil then
   function emit(shape)
   end
 end
 
-if emit == nil then
-  function implicit_distance_field(glsl)
-    print(glsl)
+if implicit_distance_field == nil then
+  if implicit == nil then
+    function implicit_distance_field(pmin, pmax, glsl)
+      print(glsl)
+    end
+  else
+    distanceMethodName = "distanceEstimator"
+    function implicit_distance_field(pmin, pmax, glsl)
+      --print(glsl)
+      return implicit(pmin, pmax, glsl)
+    end
   end
 end
 
@@ -54,7 +64,7 @@ end
 function sdImplicit(pmin, pmax, sdShape)
   defs = accumulateDefinition(sdShape, "")
   instances = accumulateInstances(sdShape, "", "p", "d")
-  glsl = defs .. "\nfloat distance(vec3 p) {\n  float d;\n" .. instances .. "  return d;\n}\n"
+  glsl = defs .. "\nfloat " .. distanceMethodName .. "(vec3 p) {\n  float d;\n" .. instances .. "  return d;\n}\n"
   --print(glsl)
   return implicit_distance_field(
     pmin,
